@@ -7,6 +7,7 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -22,5 +23,5 @@ public interface SurveyApi {
             @ApiResponse(code = 200, message = "Survey object Created/Edited"),
             @ApiResponse(code = 400, message = "Survey object not valid")
     })
-    SurveyDto save(@RequestBody SurveyDto dto);
+    ResponseEntity<String> save(@RequestBody SurveyDto dto);
 }
