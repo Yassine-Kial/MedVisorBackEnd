@@ -1,6 +1,4 @@
 package com.emi.medicalimageprocessing.Controller.api;
-
-
 import com.emi.medicalimageprocessing.dto.SurveyDto;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -23,5 +21,6 @@ public interface SurveyApi {
             @ApiResponse(code = 200, message = "Survey object Created/Edited"),
             @ApiResponse(code = 400, message = "Survey object not valid")
     })
+
     ResponseEntity<String> save(@RequestBody SurveyDto dto);
 }

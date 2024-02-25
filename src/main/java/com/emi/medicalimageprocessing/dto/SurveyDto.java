@@ -11,8 +11,6 @@ import javax.persistence.Column;
 @Data
 @Builder
 public class SurveyDto {
-
-
     private Integer id;
     private String gender;
     private String workType;
@@ -23,7 +21,7 @@ public class SurveyDto {
     private float bmi;
     private int hypertension;
     private int heartDisease;
-    private int everMarried;
+    private String everMarried;
 
 
     public Integer getId() {
@@ -106,11 +104,11 @@ public class SurveyDto {
         this.heartDisease = heartDisease;
     }
 
-    public int getEverMarried() {
+    public String getEverMarried() {
         return everMarried;
     }
 
-    public void setEverMarried(int everMarried) {
+    public void setEverMarried(String everMarried) {
         this.everMarried = everMarried;
     }
 
@@ -133,7 +131,6 @@ public class SurveyDto {
                 .everMarried(survey.getEverMarried())
                 .build();
     }
-
     public static Survey toEntity (SurveyDto surveyDto){
         if (surveyDto ==null) {
             return null;
@@ -152,10 +149,6 @@ public class SurveyDto {
         survey.setEverMarried(surveyDto.getEverMarried());
         return survey;
     }
-
-
-
-
 }
 
 
