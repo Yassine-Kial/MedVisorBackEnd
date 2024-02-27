@@ -13,6 +13,17 @@ import javax.persistence.Table;
 @Entity
 @Table(name="survey")
 public class Survey extends AbstractEntity {
+    @Column(name = "result")
+    private int result;
+
+    public int getResult() {
+        return result;
+    }
+
+    public void setResult(int result) {
+        this.result = result;
+    }
+
     @Column(name = "id")
     private Integer id;
     @Column(name = "gender")

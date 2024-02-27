@@ -3,16 +3,18 @@ package com.emi.medicalimageprocessing.Controller;
 
 import com.emi.medicalimageprocessing.Controller.api.SurveyApi;
 import com.emi.medicalimageprocessing.dto.SurveyDto;
+import com.emi.medicalimageprocessing.model.Survey;
 import com.emi.medicalimageprocessing.services.AiModelService;
 import com.emi.medicalimageprocessing.services.SurveyService;
 import com.emi.medicalimageprocessing.validator.SurveyValidator;
+import org.json.JSONException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 public class SurveyController implements SurveyApi {
@@ -30,7 +32,7 @@ public class SurveyController implements SurveyApi {
         this.surveyValidator = surveyValidator;
     }
     @Override
-    public ResponseEntity<String> save(SurveyDto dto) {
+    public ResponseEntity<String> save(SurveyDto dto) throws JSONException {
 
         List<String> validationErrors = SurveyValidator.validate(dto);
 
@@ -40,8 +42,23 @@ public class SurveyController implements SurveyApi {
         }
 
 
-        surveyService.save(dto);
         SurveyDto data = aiModelService.preProcessData(dto);
-        return aiModelService.sendRequestToAiModel(data);
+        ResponseEntity<String> stringResult = aiModelService.sendRequestToAiModel(data);
+
+        double result = this.aiModelService.extractResultValue(stringResult);
+        int realResult = (int)result;
+        dto.setResult(realResult);
+        surveyService.save(dto);
+        System.out.println(realResult);
+        System.out.println(stringResult);
+
+
+        return stringResult;
+    }
+    @Override
+    public int getByMaxId(){
+        Optional<Survey> survey =this.surveyService.getRowWithMaxId();
+        int result = survey.get().getResult();
+        return result;
     }
 }

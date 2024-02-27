@@ -1,10 +1,14 @@
 package com.emi.medicalimageprocessing.services.impl;
 import com.emi.medicalimageprocessing.dto.SurveyDto;
+import com.emi.medicalimageprocessing.model.Survey;
 import com.emi.medicalimageprocessing.repository.SurveyRepository;
 import com.emi.medicalimageprocessing.services.SurveyService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Optional;
 
 @Service
 @Slf4j
@@ -18,6 +22,11 @@ public class SurveyServiceImpl implements SurveyService {
     public SurveyDto save(SurveyDto dto) {
         System.out.println(dto);
         return SurveyDto.fromEntity(surveyRepository.save(SurveyDto.toEntity(dto)));
+    }
+
+    @Override
+    public Optional<Survey> getRowWithMaxId() {
+        return surveyRepository.findFirstByOrderByIdDesc();
     }
 }
 

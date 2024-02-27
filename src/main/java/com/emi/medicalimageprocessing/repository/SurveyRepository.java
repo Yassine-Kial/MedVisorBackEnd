@@ -10,4 +10,6 @@ public interface SurveyRepository extends JpaRepository<Survey, Integer> {
 
     Survey save(Survey survey);
     Optional<Survey> findById(Integer id);
+
+    Optional<Survey> findFirstByOrderByIdDesc();
 }

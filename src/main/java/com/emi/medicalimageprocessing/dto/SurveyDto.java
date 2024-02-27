@@ -11,7 +11,18 @@ import javax.persistence.Column;
 @Data
 @Builder
 public class SurveyDto {
+
     private Integer id;
+    private int result;
+
+    public int getResult() {
+        return result;
+    }
+
+    public void setResult(int result) {
+        this.result = result;
+    }
+
     private String gender;
     private String workType;
     private String residenceType;
@@ -129,6 +140,7 @@ public class SurveyDto {
                 .hypertension(survey.getHypertension())
                 .heartDisease(survey.getHeartDisease())
                 .everMarried(survey.getEverMarried())
+                .result(survey.getResult())
                 .build();
     }
     public static Survey toEntity (SurveyDto surveyDto){
@@ -147,6 +159,7 @@ public class SurveyDto {
         survey.setHypertension(surveyDto.getHypertension());
         survey.setHeartDisease(surveyDto.getHeartDisease());
         survey.setEverMarried(surveyDto.getEverMarried());
+        survey.setResult(surveyDto.getResult());
         return survey;
     }
 }
